@@ -1,0 +1,10 @@
+{
+  "name": "botwall",
+  "version": "1.0.0",
+  "description": "Tells you which bot protection a website runs, and whether a plain request gets through.",
+  "type": "module",
+  "bin": { "botwall": "./bin/botwall.mjs" },
+  "engines": { "node": ">=18" },
+  "keywords": ["web-scraping", "bot-detection", "waf", "cloudflare", "datadome", "akamai", "reconnaissance"],
+  "license": "MIT"
+}
