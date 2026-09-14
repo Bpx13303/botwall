@@ -32,8 +32,10 @@ const SIGNATURES = [
 
 const VERDICTS = {
   200: 'passes',
-  403: 'refused',
+  204: 'passes',
   401: 'refused',
+  403: 'refused',
+  405: 'HEAD not allowed',   // not a block: the site simply refuses this method
   429: 'rate-limited',
   503: 'challenged',
 };
@@ -62,6 +64,7 @@ async function probe(host) {
       status: Number(status) || null,
       protection: identify(stdout),
       plainRequest: VERDICTS[status] || (status >= 400 ? 'refused' : 'unclear'),
+      note: status === '405' ? 'retry with GET to know whether the content is reachable' : undefined,
       bytes: Number(bytes) || 0,
     };
   } catch (err) {

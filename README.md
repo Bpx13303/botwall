@@ -87,6 +87,10 @@ is the cheapest possible probe, and plenty of sites let it through while
 refusing the pages that actually carry content. Treat `passes` as *nothing
 blocked me at the door*, not as *this site is open*.
 
+**`HEAD not allowed` is not a block.** A 405 means the site refuses this particular
+method, not that it refuses you. Amazon does this. Retry with a normal GET before
+concluding anything.
+
 **`—` does not mean unprotected.** Some products only reveal themselves once
 JavaScript runs, or only on the routes they are configured to guard. An empty
 result means nothing was visible in the headers of that one response.
