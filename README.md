@@ -109,4 +109,4 @@ that does not disturb them.
 
 ## License
 
-MIT — Hugo Herail
+MIT — Hugo H
