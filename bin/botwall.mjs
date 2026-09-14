@@ -42,8 +42,7 @@ const GUARDS = [
 
 /* ── what a wall looks like in the first bytes of the body ─────────────── */
 const WALL_HINTS = [
-  { name: 'challenge', test: /challenge-platform|are you human|verify you are|captcha|_Incapsula_Resource|sorry[_-]?server|access denied|zugriff verweigert/i },
-  { name: 'login',     test: /<form[^>]+(login|signin)|please (log|sign) in|connectez-vous/i },
+  { name: 'challenge', test: /challenge-platform|checking your browser|are you (a )?human|verify you are|enable javascript and cookies|_Incapsula_Resource|sorry[_-]?server|access denied|zugriff verweigert/i },
 ];
 
 /** curl exit codes worth naming instead of hiding behind "unreachable" */
@@ -85,7 +84,9 @@ function readVerdict({ status, bytes, guard, body, effective, asked }) {
   if (status === 405 || status === 404) return { verdict: 'method refused', why: `HTTP ${status} — retry with a browser` };
   if (status >= 400) return { verdict: 'refused', why: `HTTP ${status}` };
   if (status >= 200 && status < 300) {   // 206 = our own range request, not a site behaviour
-    if (wall) return { verdict: `wall: ${wall.name}`, why: 'body looks like a gate, not content' };
+    const small = bytes > 0 && bytes < 60000;
+    if (wall && small) return { verdict: `wall: ${wall.name}`, why: `${bytes} B page carrying a gate, not content` };
+    if (wall) return { verdict: 'served', why: `gate wording present, but ${bytes} B of page behind it` };
     if (bytes > 0 && bytes < 1500) return { verdict: 'thin body', why: `${bytes} B page — too small to hold content` };
     const bare = h => String(h).replace(/^www\./i, '').toLowerCase();
     if (effective && asked && bare(new URL(effective).hostname) !== bare(asked))

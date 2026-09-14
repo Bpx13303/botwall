@@ -62,10 +62,12 @@ guarding. A vehicle marketplace will serve you its homepage and refuse its searc
 results from the same protection stack. **Give the tool the URL that carries the
 data**, not the domain.
 
-**`wall: challenge` means the response was 200 but the body reads like a gate.**
-A block page returned as 200 OK is the single most expensive trap in this work: it
-looks like success, it passes every status check, and it fills your file with
-nothing. The first 4 KB usually give it away.
+**`wall: challenge` means two things had to be true at once:** the body carries
+gate wording *and* the page is too small to hold anything else. A block page
+returned as 200 OK is the most expensive trap in this work — it looks like success,
+it passes every status check, and it fills your file with nothing. But a 300 KB page
+that happens to contain the word "captcha" is not a wall, so the tool says
+`served` and tells you the wording was there.
 
 **`thin body` means the page is too small to hold content.** A homepage under
 1.5 KB is a shell, a redirect stub, or a wall.
