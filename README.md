@@ -9,7 +9,7 @@ It does not bypass anything. It tells you what you are up against before you
 write a single line of scraper.
 
 ```
-$ npx botwall www.example-shop.fr www.example-store.com
+$ npx github:Bpx13303/botwall www.example-shop.fr www.example-store.com
 
 HOST                  CODE  PROTECTION             PLAIN REQUEST
 --------------------- ----- ---------------------- -------------
@@ -29,9 +29,10 @@ This is the first thing I run when someone sends me a URL.
 ## Install
 
 Requires Node 18+ and `curl` (present on macOS and most Linux distributions).
+No install, no dependencies:
 
 ```bash
-npx botwall example.com
+npx github:Bpx13303/botwall example.com
 ```
 
 Or clone it:
